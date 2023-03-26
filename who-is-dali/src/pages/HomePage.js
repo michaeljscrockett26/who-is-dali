@@ -1,7 +1,7 @@
 import axios from "axios";
 import {useEffect, useState} from "react";
 import UserCard from "../components/UserCard";
-import {Container, Row} from "react-bootstrap";
+import {Col, Container, Row} from "react-bootstrap";
 
 const HomePage = () => {
     const [users, setUsers] = useState([]);
@@ -19,8 +19,8 @@ const HomePage = () => {
         <>
             <h1>Dali Members</h1>
             <Container>
-                <Row>
-                    {users.map(user => <UserCard user={user}/>)}
+                <Row className={"my-5"}>
+                    {users.map(user => <Col key={user.name} align="center" className="my-2"><UserCard user={user}/></Col>)}
                 </Row>
             </Container>
         </>

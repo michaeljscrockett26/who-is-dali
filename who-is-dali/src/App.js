@@ -1,4 +1,5 @@
 import {BrowserRouter} from "react-router-dom";
+import styled from 'styled-components'
 import routes from "./routes.js"
 import NavBar from "./components/NavBar";
 
