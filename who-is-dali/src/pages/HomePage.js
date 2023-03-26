@@ -8,6 +8,7 @@ const HomePage = () => {
 
 
     useEffect(() => {
+        document.title = "Who is DALI?";
         const getUsers = async () => {
             const response = await axios.get("http://localhost:8080/api/users");
             setUsers(response.data);
@@ -17,7 +18,7 @@ const HomePage = () => {
 
     return (
         <>
-            <h1>Dali Members</h1>
+            <h1>DALI Members</h1>
             <Container>
                 <Row className={"my-5"}>
                     {users.map(user => <Col key={user.name} align="center" className="my-2"><UserCard user={user}/></Col>)}

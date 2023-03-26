@@ -27,7 +27,7 @@ const UserCard = ({ user }) => {
 
     return (
         <StyledCard>
-            <CardLink to={`/${user.name}`}>
+            <CardLink to={`/user/${user.name}`}>
                 <ImgContainer>
                     <Img  variant="top" src={user.picture} alt={user.name}/>
                 </ImgContainer>

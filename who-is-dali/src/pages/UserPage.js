@@ -1,4 +1,4 @@
-import {useParams} from "react-router";
+import {useNavigate, useParams} from "react-router";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import styled from "styled-components";
@@ -24,13 +24,22 @@ const BasicInfo = styled.ul`
 `
 
 const UserPage = () => {
+
     const [user, setUser] = useState("")
+    const navigate = useNavigate();
+
+
     const {userName} = useParams();
 
     useEffect(() => {
+        document.title = userName;
         const getUser = async () => {
-            const response = await axios.get(`http://localhost:8080/api/users/${encodeURIComponent(userName)}`);
-            setUser(response.data);
+            try {
+                const response = await axios.get(`http://localhost:8080/api/users/${encodeURIComponent(userName)}`);
+                setUser(response.data);
+            } catch (e) {
+                navigate("/user");
+            }
         };
         getUser();
     }, [userName])
@@ -45,22 +54,24 @@ const UserPage = () => {
         "White",
         "Other",
     ]
-    return (
+
+    return !user ? <h1>Loading...</h1> : (
         <UserContainer>
-            <Col className="text-end"><UserImage src={user.picture}/></Col>
-            <Col className="text-start">
+            <Col md={6} className="text-md-end"><UserImage src={user.picture} alt="User Image"/></Col>
+            <Col md={6} className="text-md-start">
                 <h1>{user.name}</h1>
                 <BasicInfo>
                     <li><strong>Role:</strong> {user.role}</li>
                     <li><strong>Year:</strong> {user.year}</li>
                     <li><strong>Major:</strong> {user.major}</li>
+                    <li><strong>Favorite Shoe:</strong> {user.favoriteShoe}</li>
                     <li>
                         <strong>Race/Ethnicity:</strong>
-                        <ul>{
+                        <BasicInfo>{
                             eth_choices.map((e, i) => (
-                                user[e] ? <li key={i}>{user[e]}</li> : null
+                                user[e] ? <li className="ms-md-4" key={i}>{user[e]}</li> : null
                             ))
-                        }</ul>
+                        }</BasicInfo>
                     </li>
                 </BasicInfo>
             </Col>
