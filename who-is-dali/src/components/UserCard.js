@@ -1,32 +1,12 @@
 import Card from 'react-bootstrap/Card'
-import styled from 'styled-components'
-import {Link} from "react-router-dom";
+import {StyledCard, Img, ImgContainer} from './styled/UserCardStyles'
+import CardLink from './styled/UndecoratedLink';
 
-const StyledCard = styled(Card)`
-    width: 18rem;
-    text-align: left;
-`;
-
-const ImgContainer = styled.span`
-    overflow: hidden;
-    width: 18rem;
-    height: 18rem;
-`
-
-const Img = styled(Card.Img)`
-  width: 100%;
-  height: 18rem;
-  object-fit: cover;
-`
-const CardLink = styled(Link)`
-    text-decoration: none;
-    color: inherit;
-`
 
 const UserCard = ({ user }) => {
 
     return (
-        <StyledCard>
+        <StyledCard className="shadow">
             <CardLink to={`/user/${user.username}`}>
                 <ImgContainer>
                     <Img  variant="top" src={user.picture} alt={user.name}/>

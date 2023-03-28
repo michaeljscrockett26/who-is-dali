@@ -1,27 +1,9 @@
 import {useNavigate, useParams} from "react-router";
 import {useEffect, useState} from "react";
 import axios from "axios";
-import styled from "styled-components";
-import Row from "react-bootstrap/Row"
 import {Col} from "react-bootstrap";
+import { UserContainer, UserImage, BasicInfo } from "../components/styled/UserPageStyles";
 
-const UserContainer = styled(Row)`
-    margin-left: 10%;
-    margin-right: 10%;
-    text-align: center;
-`
-
-const UserImage = styled.img`
-    height: 20rem;
-    object-fit: contain;
-`
-
-const BasicInfo = styled.ul`
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  font-size: 1.5rem;
-`
 
 const UserPage = () => {
 
