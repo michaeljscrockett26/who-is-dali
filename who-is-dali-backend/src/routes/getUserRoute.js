@@ -1,16 +1,14 @@
-import users from '../data/DALI_Data.json' assert {type: 'json'};
+import {getUser} from '../fakeDb.js' // db.js to access real database, fakeDb.js to use fake one
 
 export const getUserRoute = {
-    path: '/api/users/:name',
+    path: '/api/users/:username',
     method: 'get',
     handler: (req, res) => {
-        const { name } = req.params;
-        const user = users.find((u) => u.name === name);
-
-        if (user) {
-            res.status(200).json(user);
-        } else {
-            res.sendStatus(404);
+        const { username } = req.params;
+        try {
+            getUser(username).then(user => res.status(200).json({...user, username}));
+        } catch (e) {
+            res.status(404).send(e.message);
         }
     },
 };
