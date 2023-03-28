@@ -11,9 +11,9 @@ const HomePage = () => {
         document.title = "Who is DALI?";
         const getUsers = async () => {
             const response = await axios.get("http://localhost:8080/api/users");
-            setUsers(response.data);
+            return response.data;
         };
-        getUsers();
+        getUsers().then(setUsers);
     }, [])
 
     return (

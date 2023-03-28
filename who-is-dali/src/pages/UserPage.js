@@ -19,12 +19,12 @@ const UserPage = () => {
         const getUser = async () => {
             try {
                 const response = await axios.get(`http://localhost:8080/api/users/${encodeURIComponent(userName)}`);
-                setUser(response.data);
+                return response.data;
             } catch (e) {
                 navigate("/user");
             }
         };
-        getUser();
+        getUser().then(setUser);
     }, [userName, navigate])
 
     const eth_choices = [
@@ -53,7 +53,7 @@ const UserPage = () => {
                         <strong>Race/Ethnicity:</strong>
                         <BasicInfo>{
                             eth_choices.map((e, i) => (
-                                user[e] ? <li className="ms-md-4" key={i}>{user[e]}</li> : null
+                                user[e] && <li className="ms-md-4" key={i}>{user[e]}</li>
                             ))
                         }</BasicInfo>
                     </li>

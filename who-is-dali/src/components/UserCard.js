@@ -9,7 +9,7 @@ const UserCard = ({ user }) => {
         <StyledCard className="shadow">
             <CardLink to={`/user/${user.username}`}>
                 <ImgContainer>
-                    <Img  variant="top" src={user.picture} alt={user.name}/>
+                    <Img variant="top" src={user.picture} alt={user.name}/>
                 </ImgContainer>
                 <Card.Body>
                     <Card.Title>{user.name}</Card.Title>
