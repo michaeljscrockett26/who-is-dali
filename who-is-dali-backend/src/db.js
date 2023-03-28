@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import {getFirestore, doc, setDoc, collection, getDocs} from 'firebase/firestore/lite'
+import {getFirestore, doc, setDoc, collection, getDocs, getDoc, query, limit} from 'firebase/firestore/lite'
 
 const firebaseConfig = {
     apiKey: "AIzaSyDcuXwU2gZG5amWnUReFJ93jpAtllq-vBQ",
@@ -27,14 +27,14 @@ export const setUser = async (userName, userInfo) => {
 
 
 const usersCollection = collection(db, "users");
-
+const q = query(usersCollection, limit(10))
 /**
  * returns a JSON array of user objects. each object includes username as a field.
  * @returns {Promise<*[]>} JSON array of user objects
  */
 export const getUsers = async () => {
     const users = [];
-    const querySnapshot = await getDocs(usersCollection);
+    const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
         if (doc.exists()){
             users.push({...doc.data(), username: doc.id});
@@ -42,3 +42,17 @@ export const getUsers = async () => {
     });
     return users;
 };
+
+/**
+ * gets the info for a specific user in the database by username
+ * @param username
+ * @returns {Promise<DocumentData>} JSON object of user info
+ */
+export const getUser = async username => {
+    const userDoc = await getDoc(doc(db, "users", username));
+    if (userDoc.exists()) {
+        return userDoc.data();
+    } else {
+        throw new Error(`User "${username}" does not exist!`);
+    }
+}

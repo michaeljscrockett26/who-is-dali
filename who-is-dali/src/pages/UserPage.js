@@ -31,6 +31,7 @@ const UserPage = () => {
 
     const {userName} = useParams();
 
+
     useEffect(() => {
         document.title = userName;
         const getUser = async () => {
@@ -42,7 +43,7 @@ const UserPage = () => {
             }
         };
         getUser();
-    }, [userName])
+    }, [userName, navigate])
 
     const eth_choices = [
         "American Indian or Alaska Native",
@@ -59,6 +60,7 @@ const UserPage = () => {
         <UserContainer>
             <Col md={6} className="text-md-end"><UserImage src={user.picture} alt="User Image"/></Col>
             <Col md={6} className="text-md-start">
+                <code>@{user.username}</code>
                 <h1>{user.name}</h1>
                 <BasicInfo>
                     <li><strong>Role:</strong> {user.role}</li>
